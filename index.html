@@ -3,7 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Arthur Hogarth — Official Website | arthurhogarth.com</title>
+    <meta name="description" content="The official website of Arthur Hogarth.">
+    <link rel="canonical" href="https://www.arthurhogarth.com/">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Arthur Hogarth — Official Website">
+    <meta property="og:description" content="The official website of Arthur Hogarth.">
+    <meta property="og:url" content="https://www.arthurhogarth.com/">
+    <meta property="og:site_name" content="Arthur Hogarth">
+    <meta property="og:type" content="website">
+    <!-- <meta property="og:image" content="https://www.arthurhogarth.com/preview.png"> -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Arthur Hogarth — Official Website">
+    <meta name="twitter:description" content="The official website of Arthur Hogarth.">
+    <!-- <meta name="twitter:image" content="https://www.arthurhogarth.com/preview.png"> -->
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Arthur Hogarth",
+        "url": "https://www.arthurhogarth.com/"
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H0R6F4VLJT"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-H0R6F4VLJT');
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -39,6 +75,7 @@
 
         .site-title {
             font-size: 48px;
+            font-weight: normal;
             color: black;
             margin-bottom: 30px;
         }
@@ -136,7 +173,7 @@
 </head>
 <body>
     <div class="top-title">
-        <p class="site-title">Arthurhogarth.com</p>
+        <h1 class="site-title">Arthurhogarth.com</h1>
     </div>
 
     <div class="container">
@@ -145,7 +182,7 @@
     </div>
 
     <div class="fullscreen-gif" id="arthurGif">
-        <img src="arthur.GIF" alt="Arthur">
+        <img src="arthur.GIF" alt="Arthur Hogarth">
     </div>
 
     <img src="ju.GIF" alt="Ju" class="random-ju" id="randomJu">
@@ -158,80 +195,55 @@
     <script>
         let juInterval;
 
-        // Preload audio on page load
         window.addEventListener('load', function() {
             const funkytownAudio = document.getElementById('funkytownAudio');
-            
-            // Force load audio files
             funkytownAudio.load();
         });
 
         document.getElementById('continueBtn').addEventListener('click', function() {
-            // Hide the container and top title immediately
             document.querySelector('.container').classList.add('hidden');
             document.querySelector('.top-title').classList.add('hidden');
-            
-            // Start music immediately
+
             const audio = document.getElementById('funkytownAudio');
-            
             audio.play().catch(e => console.log('Audio play failed:', e));
-            
-            // Show gif with fade effect - need small delay for transition to work
+
             const arthurGif = document.getElementById('arthurGif');
             setTimeout(() => {
                 arthurGif.classList.add('active');
             }, 10);
-            
-            // Start the random ju.gif appearance
+
             startJuSequence();
         });
 
         function startJuSequence() {
-            // Wait 8 seconds before showing ju.gif for the first time
             setTimeout(() => {
                 showRandomJu();
-                
-                // Then repeat: 8 seconds wait + show gif (plays twice)
-                // Total cycle time: 8 seconds wait + ~4 seconds for gif to play twice
                 juInterval = setInterval(() => {
                     showRandomJu();
-                }, 12000); // 8 seconds wait + 4 seconds for gif display
+                }, 12000);
             }, 8000);
         }
 
         function showRandomJu() {
             const juElement = document.getElementById('randomJu');
-            
-            // Calculate random position that keeps the image on screen
-            // Get the image dimensions (40vh height, auto width based on aspect ratio)
             const viewportHeight = window.innerHeight;
             const viewportWidth = window.innerWidth;
-            const juHeight = viewportHeight * 0.4; // 40vh
-            
-            // Estimate width based on typical aspect ratio (we'll use a safe margin)
-            const estimatedJuWidth = juHeight * 1.5; // Adjust this ratio if needed
-            
-            // Calculate safe bounds
+            const juHeight = viewportHeight * 0.4;
+            const estimatedJuWidth = juHeight * 1.5;
             const maxTop = viewportHeight - juHeight;
             const maxLeft = viewportWidth - estimatedJuWidth;
-            
-            // Random position within safe bounds
             const randomTop = Math.random() * Math.max(0, maxTop);
             const randomLeft = Math.random() * Math.max(0, maxLeft);
-            
-            // Position the element
+
             juElement.style.top = randomTop + 'px';
             juElement.style.left = randomLeft + 'px';
-            
-            // Reset the gif to start from beginning by reloading src
+
             const currentSrc = juElement.src;
             juElement.src = '';
             juElement.src = currentSrc;
-            
-            // Show the gif
+
             juElement.classList.add('show');
-            
-            // Hide after gif plays twice (assuming ~2 seconds per loop = 4 seconds total)
+
             setTimeout(() => {
                 juElement.classList.remove('show');
             }, 4000);
@@ -239,4 +251,3 @@
     </script>
 </body>
 </html>
-
